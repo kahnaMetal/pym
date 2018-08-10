@@ -1,0 +1,4 @@
+[01-Nov-2017 00:56:41 America/Bogota] PHP Fatal error:  Cannot redeclare Tokens_model::refuseToken() in /home/newsol/public_html/Server/application/models/Tokens_model.php on line 58
+[01-Nov-2017 00:57:27 America/Bogota] PHP Fatal error:  Cannot redeclare Tokens_model::refuseToken() in /home/newsol/public_html/Server/application/models/Tokens_model.php on line 58
+[10-Nov-2017 23:57:45 America/Bogota] PHP Notice:  date_default_timezone_set(): Timezone ID 'America/Brasilia' is invalid in /home/newsol/public_html/Server/application/config/config.php on line 3
+[10-Nov-2017 23:58:03 America/Bogota] PHP Notice:  date_default_timezone_set(): Timezone ID 'America/Brasilia' is invalid in /home/newsol/public_html/Server/application/config/config.php on line 3
