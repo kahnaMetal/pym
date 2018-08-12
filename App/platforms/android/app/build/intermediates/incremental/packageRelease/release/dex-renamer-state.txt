@@ -1,0 +1,4 @@
+#Sat Aug 11 15:28:27 COT 2018
+base.0=/var/www/html/PYM/App/platforms/android/app/build/intermediates/transforms/dex/release/0
+path.0=classes.dex
+renamed.0=classes.dex

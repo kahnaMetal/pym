@@ -4,9 +4,10 @@
     <!-- ETIQUETAS META -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- BOOTSTRAP CSS -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/global.css">
     <!-- CSS DE LAPÁGINA -->
 
     <title>PYM Eje Cafetero | Modulo Clientes</title>
@@ -20,23 +21,29 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          <a class="nav-item nav-link active" href="./">Inicio <span class="sr-only">(activo)</span></a>
+          <a class="nav-item nav-link" href="index.html">Inicio <span class="sr-only">(activo)</span></a>
           <a class="nav-item nav-link" href="pedidos.html">Pedidos</a>
           <a class="nav-item nav-link" href="productos.html">Productos</a>
-          <a class="nav-item nav-link" href="clientes.html">Clientes</a>
+          <a class="nav-item nav-link active" href="clientes.html">Clientes</a>
         </div>
       </div>
     </nav>
     <!--MENÚ AL PIE DE PÁGINA-->
     <nav class="navbar fixed-bottom navbar-light bg-light">
       <div class="col text-center">
-        <i class="fa fa-plus fa-2x"></i>
+        <a href="newCustomer" data-toggle="modal" data-target="#newCustomer" class="badge badge-primary">
+          <i class="fa fa-plus fa-2x"></i>
+        </a>
       </div>
       <div class="col text-center">
-        <i class="fa fa-edit fa-2x"></i>
+        <a href="#" class="badge badge-primary">
+          <i class="fa fa-pencil fa-2x"></i>
+        </a>
       </div>
       <div class="col text-center">
-        <i class="fa fa-times fa-2x"></i>
+        <a href="#" class="badge badge-primary">
+          <i class="fa fa-times fa-2x"></i>
+        </a>
       </div>
     </nav>
     <!--CONTENENOR PRINCIPAL-->
@@ -46,7 +53,7 @@
           <div class="card text-center">
             <div class="card-header">
               <div class="input-group">
-                <input type="search" class="form-control" id="stringCustomer" placeholder="Nombre(s) o Documento" aria-describedby="inputGroupPrepend3" required>
+                <input type="search" class="form-control" id="stringCustomer" placeholder="Nombre(s) o Identificación" aria-describedby="inputSearchCustomer" required>
                 <div class="input-group-prepend">
                   <span class="input-group-text btn" id="searchCustomer">
                     <i class="fa fa-search"></i>
@@ -55,40 +62,103 @@
               </div>
             </div>
             <div class="card-body">
-              <ul id="loadCustomers" class="pl-0">
-                <li class="media border-bottom">
-                  <figure class="figure">
-                    <img class="mr-3" src="img/c64_2.png" alt="Generic placeholder image">
-                    <figcaption class="figure-caption text-left">
-                      <small>Persona</small>
-                    </figcaption>
-                  </figure>
-                  <div class="media-body text-left">
-                    <h5 class="mt-0">Media heading</h5>
-                    <p>Descripción de producto maximo dos lineas</p>
-                  </div>
-                </li>
-                <li class="media border-bottom mt-3">
-                  <figure class="figure">
-                    <img class="mr-3" src="img/c64_1.png" alt="Generic placeholder image">
-                    <figcaption class="figure-caption text-left">
-                      <small>Empresa</small>
-                    </figcaption>
-                  </figure>
-                  <div class="media-body text-left">
-                    <h5 class="mt-0">Media heading</h5>
-                    <p>Descripción de producto maximo dos lineas</p>
-                  </div>
-                </li>
-              </ul>
+              <ul id="loadCustomers" class="pl-0"></ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!--MODAL RECURSIVA-->
-
-
+    <!-- MODALES -->
+    <div class="modal fade" id="newCustomer" tabindex="-1" role="dialog" aria-labelledby="newCustomerLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newCustomerLabel">Nuevo Cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="frmNewCustomer">
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="type">Seleccione tipo de cliente <span class="text-danger">*</span></label>
+                  <select name="type" class="custom-select">
+                    <option value="1">Persona</option>
+                    <option value="2">Empresa</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-row typePerson">
+                <div class="form-group col-md-12">
+                  <label for="document">Documento Identificación <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="document" placeholder="Cédula - Pasaporte - Cédula Extrangería">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="name">Nombre(s) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="name" placeholder="Nombre o nombres">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="lastname">Apellido(s) <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="lastname" placeholder="Apellido o apellidos">
+                </div>
+              </div>
+              <div class="form-row typeCompany d-none">
+                <div class="form-group col-md-12">
+                  <label for="nit">NIT <span class="text-danger">*</span></label>
+                  <div class="input-group">
+                    <input type="text" class="form-control col-8" name="nit" placeholder="Número de identificación tributaria">
+                    <div class="input-group-append col-4 pr-0">
+                      <input type="text" class="form-control" name="digit" placeholder="Digito de verificación">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="company">Razón Social <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="company" placeholder="Nombre completo de la empresa">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="phone">Teléfono <span class="text-danger">*</span></label>
+                  <input type="tel" class="form-control" name="phone" placeholder="Número teléfonico 1">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="cellphone">Celular</label>
+                  <input type="tel" class="form-control" name="cellphone" placeholder="Número teléfonico 2">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="email">Correo Electrónico</label>
+                  <input type="email" class="form-control" name="email" placeholder="Correo electrónico de notificación">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12">
+                  <label for="address">Dirección <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" name="address" placeholder="Dirección completa">
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-12" id="locateCustomer">
+                  <label for="address">Ubicación</label>
+                </div>
+              </div>
+              <input type="hidden" readonly name="city">
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <i class="fa fa-times"></i>
+            </button>
+            <button type="button" class="btn btn-success">
+              <i class="fa fa-save"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- JS -->
     <script src="js/jquery-3.3.1.slim.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>

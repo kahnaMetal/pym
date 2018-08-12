@@ -56,11 +56,14 @@ class Clientes extends CI_Controller {
 	public function insertUpdate(){
 			if($_POST){//PREGUNTAMOS SI HAY DATOS ENVIADOR POR POST
 				//VALIDAMOS LOS CAMPOS OBLIGATORIOS
+
 				$validate = TRUE;
-				$validate = ( $this->input->post('type') != "1" || $this->input->post('type') != "2" ) ? FALSE:$validate;
+
+				$validate = ( $this->input->post('type') != "1" && $this->input->post('type') != "2" ) ? FALSE:$validate;
 				$validate = ( $this->input->post('phone') == "" || $this->input->post('phone') == NULL ) ? FALSE:$validate;
 				$validate = ( $this->input->post('address') == "" || $this->input->post('address') == NULL ) ? FALSE:$validate;
 				//VERIFICAMOS SI ES PERSONA NATURAL O JURIDICA
+
 				if($this->input->post('type')=="1"){
 					//RESETEAMOS CAMPOS DE PERSONA JURIDICA
 					$nit = NULL; $digit = NULL; $company = NULL;

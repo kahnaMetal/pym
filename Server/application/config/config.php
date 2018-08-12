@@ -1,6 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-date_default_timezone_set('America/Sao_Paulo');
+date_default_timezone_set('America/Bogota');
 /*America/Brasilia
 |--------------------------------------------------------------------------
 | Base Site URL
@@ -524,7 +524,7 @@ $config['proxy_ips'] = '';
 
 /*
 |--------------------------------------------------------------------------
-| Variables globales 
+| Variables globales
 |--------------------------------------------------------------------------
 */
 $config['date_dia'] = array("Domingo","Lunes","Martes","Miercoles","Jueves","Viernes","Sábado");;

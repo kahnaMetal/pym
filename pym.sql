@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 27-07-2018 a las 11:57:07
+-- Tiempo de generación: 11-08-2018 a las 17:00:44
 -- Versión del servidor: 10.1.29-MariaDB-6+b1
 -- Versión de PHP: 7.2.4-1+b2
 
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `cities` (
   `idCity` int(11) NOT NULL COMMENT 'Llave Primaria Auto Incremento',
   `nameCity` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
-  `typeCity` enum('1','2','3') COLLATE utf8_spanish2_ci NOT NULL DEFAULT '1' COMMENT '1: Ciudad, 2: Dpto, 3: País',
+  `typeCity` enum('0','1','2','3') COLLATE utf8_spanish2_ci NOT NULL DEFAULT '1' COMMENT '0: Zona, 1: Ciudad, 2: Dpto, 3: País',
   `parentCity` int(11) NOT NULL,
   `statusCity` enum('1','2') COLLATE utf8_spanish2_ci NOT NULL DEFAULT '1' COMMENT '1: Activo, 2: Eliminado',
   `createdBy_City` int(11) NOT NULL COMMENT 'Llave foranea de la tabla Users generada al hacer un INSERT ',
@@ -38,6 +38,19 @@ CREATE TABLE `cities` (
   `updatedAt_Customer` datetime DEFAULT NULL,
   `deletedBy_Customer` int(11) DEFAULT NULL COMMENT 'Llave foranea de la tabla Users generada al hacer un UPDATE SET status = ''0'' que representa una eliminación',
   `deletedAt_Customer` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ci_sessions`
+--
+
+CREATE TABLE `ci_sessions` (
+  `id` varchar(40) COLLATE utf8_spanish2_ci NOT NULL,
+  `ip_address` varchar(45) COLLATE utf8_spanish2_ci NOT NULL,
+  `timestamp` int(10) UNSIGNED NOT NULL DEFAULT '0',
+  `data` blob NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -54,7 +67,7 @@ CREATE TABLE `customers` (
   `lastnameCustomer` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL COMMENT 'campo aplica si typeCustomer == 1',
   `nitCustomer` bigint(9) DEFAULT NULL COMMENT 'campo aplica si typeCustomer == 2',
   `businessDigitCustomer` int(1) DEFAULT NULL COMMENT 'campo aplica si typeCustomer == 2',
-  `businessNameCustomer` int(250) DEFAULT NULL COMMENT 'campo aplica si typeCustomer == 2',
+  `businessNameCustomer` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL COMMENT 'campo aplica si typeCustomer == 2',
   `phoneCustomer` bigint(10) NOT NULL,
   `cellphoneCustomer` bigint(10) DEFAULT NULL,
   `emailCustomer` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
@@ -69,6 +82,25 @@ CREATE TABLE `customers` (
   `updatedAt_Customer` datetime DEFAULT NULL,
   `deletedBy_Customer` int(11) DEFAULT NULL COMMENT 'Llave foranea de la tabla Users generada al hacer un UPDATE SET status = ''0'' que representa una eliminación',
   `deletedAt_Customer` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `logs`
+--
+
+CREATE TABLE `logs` (
+  `idLog` int(11) NOT NULL,
+  `typeLog` enum('1','2','3','4','5') COLLATE utf8_spanish2_ci NOT NULL COMMENT '1: Login, 2: Logout, 3: Insert, 4: Update, 5: Delete',
+  `detailLog` text COLLATE utf8_spanish2_ci NOT NULL,
+  `dateLog` datetime NOT NULL,
+  `ipLog` varchar(15) COLLATE utf8_spanish2_ci NOT NULL,
+  `agentLog` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+  `statusLog` enum('success','warning','delete') COLLATE utf8_spanish2_ci NOT NULL,
+  `table_LogFK` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+  `row_LogFK` int(11) NOT NULL,
+  `user_LogFK` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- --------------------------------------------------------
@@ -99,7 +131,7 @@ CREATE TABLE `payments` (
 CREATE TABLE `products` (
   `idProduct` int(11) NOT NULL COMMENT 'Llave Primaria Auto Incremento',
   `nameProduct` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
-  `imgProduct` varchar(250) COLLATE utf8_spanish2_ci NOT NULL,
+  `imgProduct` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `categoryProduct` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL COMMENT 'Debe guardar siempre en MAYUSCULA',
   `qtyProduct` int(11) NOT NULL,
   `valueProduct` double NOT NULL,
@@ -241,6 +273,13 @@ ALTER TABLE `cities`
   ADD KEY `deletedBy_Customer` (`deletedBy_Customer`);
 
 --
+-- Indices de la tabla `ci_sessions`
+--
+ALTER TABLE `ci_sessions`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `ci_sessions_timestamp` (`timestamp`);
+
+--
 -- Indices de la tabla `customers`
 --
 ALTER TABLE `customers`
@@ -250,6 +289,13 @@ ALTER TABLE `customers`
   ADD KEY `updatedBy_Customer` (`updatedBy_Customer`),
   ADD KEY `deletedBy_Customer` (`deletedBy_Customer`),
   ADD KEY `userCustomer_fkUsers` (`userCustomer_fkUsers`);
+
+--
+-- Indices de la tabla `logs`
+--
+ALTER TABLE `logs`
+  ADD PRIMARY KEY (`idLog`),
+  ADD KEY `user_LogFK` (`user_LogFK`);
 
 --
 -- Indices de la tabla `payments`
@@ -336,12 +382,17 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `cities`
 --
 ALTER TABLE `cities`
-  MODIFY `idCity` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento';
+  MODIFY `idCity` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento', AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT de la tabla `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento';
+  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento', AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT de la tabla `logs`
+--
+ALTER TABLE `logs`
+  MODIFY `idLog` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 --
 -- AUTO_INCREMENT de la tabla `payments`
 --
@@ -351,7 +402,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT de la tabla `products`
 --
 ALTER TABLE `products`
-  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento';
+  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento', AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT de la tabla `requests`
 --
@@ -381,18 +432,10 @@ ALTER TABLE `sellers`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento ';
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Llave Primaria Auto Incremento ', AUTO_INCREMENT=2;
 --
 -- Restricciones para tablas volcadas
 --
-
---
--- Filtros para la tabla `cities`
---
-ALTER TABLE `cities`
-  ADD CONSTRAINT `cities_ibfk_1` FOREIGN KEY (`createdBy_City`) REFERENCES `users` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `cities_ibfk_2` FOREIGN KEY (`updatedBy_Customer`) REFERENCES `users` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `cities_ibfk_3` FOREIGN KEY (`deletedBy_Customer`) REFERENCES `users` (`idUser`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Filtros para la tabla `customers`

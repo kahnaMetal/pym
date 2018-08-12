@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- ETIQUETAS META -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/global.css">
+    <!-- CSS DE LAPÁGINA -->
+
+    <title>PYM Eje Cafetero | Modulo Clientes</title>
+  </head>
+  <body>
+    <!--MENÚ DE NAVEGACIÓN-->
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+      <a class="navbar-brand" href="./">PYM</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="index.html">Inicio <span class="sr-only">(activo)</span></a>
+          <a class="nav-item nav-link" href="pedidos.html">Pedidos</a>
+          <a class="nav-item nav-link" href="productos.html">Productos</a>
+          <a class="nav-item nav-link active" href="clientes.html">Clientes</a>
+        </div>
+      </div>
+    </nav>
+    <!--MENÚ AL PIE DE PÁGINA-->
+    <nav class="navbar fixed-bottom navbar-light bg-light">
+      <div class="col text-center">
+        <a href="newCustomer" data-toggle="modal" data-target="#newCustomer" class="badge badge-primary">
+          <i class="fa fa-plus fa-2x"></i>
+        </a>
+      </div>
+      <div class="col text-center">
+        <a href="#" class="badge badge-primary">
+          <i class="fa fa-pencil fa-2x"></i>
+        </a>
+      </div>
+      <div class="col text-center">
+        <a href="#" class="badge badge-primary">
+          <i class="fa fa-times fa-2x"></i>
+        </a>
+      </div>
+    </nav>
+    <!--CONTENENOR PRINCIPAL-->
+    <div class="container py-4 my-5">
+      <div class="row">
+        <div class="col-md mb-5">
+          <div class="card text-center">
+            <div class="card-header">
+              <div class="input-group">
+                <input type="search" class="form-control" id="stringCustomer" placeholder="Nombre(s) o Identificación" aria-describedby="inputSearchCustomer" required>
+                <div class="input-group-prepend">
+                  <span class="input-group-text btn" id="searchCustomer">
+                    <i class="fa fa-search"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <ul id="loadCustomers" class="pl-0"></ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- MODALES -->
+    <div class="modal fade" id="newCustomer" tabindex="-1" role="dialog" aria-labelledby="newCustomerLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="newCustomerLabel">Nuevo Cliente</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="tipoCliente">Seleccione tipo de cliente</label>
+                  <select class="custom-select">
+                    <option value="1">Persona</option>
+                    <option value="2">Empresa</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="inputPassword4">Password</label>
+                  <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputAddress">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
+              </div>
+              <div class="form-group">
+                <label for="inputAddress2">Address 2</label>
+                <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+              </div>
+              <div class="form-row">
+                <div class="form-group col-md-6">
+                  <label for="inputCity">City</label>
+                  <input type="text" class="form-control" id="inputCity">
+                </div>
+                <div class="form-group col-md-4">
+                  <label for="inputState">State</label>
+                  <select id="inputState" class="form-control">
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                  </select>
+                </div>
+                <div class="form-group col-md-2">
+                  <label for="inputZip">Zip</label>
+                  <input type="text" class="form-control" id="inputZip">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" id="gridCheck">
+                  <label class="form-check-label" for="gridCheck">
+                    Check me out
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn btn-primary">Sign in</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">
+              <i class="fa fa-times"></i>
+            </button>
+            <button type="button" class="btn btn-success">
+              <i class="fa fa-save"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- JS -->
+    <script src="js/jquery-3.3.1.slim.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/settings.js"></script>
+    <!-- JS DE LAPÁGINA -->
+    <script src="js/clientes.js"></script>
+  </body>
+</html>
